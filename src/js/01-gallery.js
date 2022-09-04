@@ -18,7 +18,7 @@ function createLightbox() {
   const gallery = new SimpleLightbox('.gallery a');
 
   gallery.on('show.simplelightbox', function () {
-    // captionDelay = 250;
+    // captionDelay: 250;
   });
 }
 createLightbox();
