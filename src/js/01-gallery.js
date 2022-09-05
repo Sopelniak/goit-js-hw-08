@@ -15,10 +15,8 @@ const markup = galleryItems.reduce(
 gallery.innerHTML = markup;
 
 function createLightbox() {
-  const gallery = new SimpleLightbox('.gallery a');
+  const gallery = new SimpleLightbox('.gallery a', { captionDelay: 250 });
 
-  gallery.on('show.simplelightbox', function () {
-    // captionDelay: 250;
-  });
+  gallery.on('show.simplelightbox', function () {});
 }
 createLightbox();
