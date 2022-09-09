@@ -23,7 +23,7 @@ function onInput(event) {
 function onBtnSubmit(event) {
   event.preventDefault();
 
-  if (localStorage.getItem('feedback-form-state') !== null) {
+  if (emailEl.value !== '' || messageEl.value !== '') {
     console.log(`email: ${emailEl.value}; message: ${messageEl.value};`);
     localStorage.removeItem('feedback-form-state');
     formEl.reset();
