@@ -1,4 +1,4 @@
-import throttle from 'lodash.throttle';
+// import throttle from 'lodash.throttle';
 
 const formEl = document.querySelector('.feedback-form');
 const emailEl = document.querySelector('.feedback-form input');
@@ -20,15 +20,25 @@ function onInput(event) {
   localStorage.setItem('feedback-form-state', JSON.stringify(feedback));
 }
 
+function onBtnSubmit(event) {
+  event.preventDefault();
+
+  if (localStorage.getItem('feedback-form-state') !== null) {
+    console.log(`email: ${emailEl.value}; message: ${messageEl.value};`);
+    localStorage.removeItem('feedback-form-state');
+    formEl.reset();
+  } else {
+    return alert('Вам потрібно ввести повідомлення!');
+  }
+}
+
 function scanLocalStorage() {
   try {
-    if (localStorage.getItem('feedback-form-state') !== null) {
-      emailEl.value = JSON.parse(
-        localStorage.getItem('feedback-form-state')
-      ).email;
-      messageEl.value = JSON.parse(
-        localStorage.getItem('feedback-form-state')
-      ).message;
+    const dataLS = localStorage.getItem('feedback-form-state');
+    const dataLSParse = JSON.parse(dataLS);
+    if (dataLS !== null) {
+      emailEl.value = dataLSParse.email;
+      messageEl.value = dataLSParse.message;
     } else {
       return;
     }
@@ -37,16 +47,3 @@ function scanLocalStorage() {
   }
 }
 scanLocalStorage();
-
-function onBtnSubmit(event) {
-  event.preventDefault();
-
-  if (localStorage.getItem('feedback-form-state') !== null) {
-    console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
-    localStorage.removeItem('feedback-form-state');
-    emailEl.value = '';
-    messageEl.value = '';
-  } else {
-    return alert('Вам потрібно ввести повідомлення!');
-  }
-}
